@@ -1,0 +1,14 @@
+﻿@{
+	ViewData["Title"] = "Search Page";
+}
+@model List<Post>
+
+<div class="text-center">
+	<h1 class="display-4">Search Stack Overflow</h1>
+	@foreach (var p in Model)
+	{
+		<div>
+			<p>@p.Id: @Html.Raw(@p.Title)</p>
+		</div>
+	}
+</div>

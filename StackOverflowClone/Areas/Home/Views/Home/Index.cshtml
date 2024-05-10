@@ -1,0 +1,13 @@
+﻿<div class="text-center">
+	<h1 class="display-5 m-5">Welcome to StackOverflowClone</h1>
+
+	@if (!SignInManager.IsSignedIn(User))
+	{
+		<p class="m-4">To get started, register or login if you already have an existing account.</p>
+		<div class="container d-flex flex-column justify-content-evenly align-items-center">
+			<a class="btn btn-outline-primary w-25 m-2" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+			<a class="btn btn-primary w-25 m-2" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+		</div>
+	}
+
+</div>
