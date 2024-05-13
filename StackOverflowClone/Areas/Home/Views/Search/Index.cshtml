@@ -3,15 +3,61 @@
 	var currentPage = int.Parse(Context.Request.Query["pageNumber"].SingleOrDefault() ?? "1");
 }
 @using StackOverflowClone.Areas.Home.Controllers
+@using HtmlAgilityPack
 @model List<PostDto>
+
+<style>
+    /* Custom CSS for Stack Overflow Clone */
+    .post {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+
+    .post-title {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .post-details {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .load-more-btn {
+        margin-top: 20px;
+    }
+</style>
 
 <div class="text-center">
 	<h1 class="display-6 mb-5">Search results for <span class="display-6" style="color:blue">@ViewData["query"]</span></h1>
 	@foreach (var p in Model)
 	{
-		<div>
-			<p>@p.PostId: @p.PostTitle </p>
-		</div>
+        <div class="post">
+            @{
+                var title = p.PostTitle is null ? "<>" : p.PostTitle;
+            }
+            <p class="post-title">@title</p>
+            @{
+                var truncatedBadges = p.UserBadges?.Length > 40 ? p.UserBadges.Substring(0, 40) + "..." : p.UserBadges;
+            }
+            <p class="post-details">
+                Posted by <span>@p.UserName</span> |
+                Reputation: <span>@p.UserReputation</span> |
+                Badges: <span>@truncatedBadges</span> |
+                Votes: <span>@p.TotalVotes</span> |
+                Answers: <span>@p.TotalAnswers</span>
+            </p>
+            @{
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(p.PostDescription);
+                var text = doc.DocumentNode.InnerText;
+                var truncatedDesc = text.Length > 140 ? text.Substring(0, 140) + "..." : text;
+
+            }
+            <p>@Html.Raw(truncatedDesc)</p>
+        </div>
 	}
 	@{
 		var nextPage = currentPage + 1;
@@ -22,6 +68,8 @@
 <script type="text/javascript">
 	window.addEventListener("load", () => {
 		console.log('onload event');
-		document.getElementById("paginate").scrollIntoView();
+        if (@currentPage != 1) {
+            document.getElementById("paginate").scrollIntoView();
+        }
 	});
 </script>

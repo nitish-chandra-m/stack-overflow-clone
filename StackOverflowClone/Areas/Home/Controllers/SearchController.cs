@@ -1,28 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using StackOverflowClone.Data;
-using StackOverflowClone.Models;
 
 namespace StackOverflowClone.Areas.Home.Controllers
 {
-	[Area("Home")]
-	public class SearchController(ApplicationDbContext context) : Controller
-	{
-		public IActionResult Index(string searchQuery, int pageNumber = 1)
-		{
-			ViewData["query"] = searchQuery;
-			return View(GetPaginatedFullTextResponse(searchQuery, pageNumber));
-		}
+    [Area("Home")]
+    public class SearchController(ApplicationDbContext context) : Controller
+    {
+        public IActionResult Index(string searchQuery, int pageNumber = 1)
+        {
+            ViewData["query"] = searchQuery;
+            return View(GetPaginatedFullTextResponse(searchQuery, pageNumber));
+        }
 
-		public List<PostDto> GetPaginatedFullTextResponse(
-			string query,
-			int pageNumber = 1,
-			int pageSize = 10)
-		{
-			int top_n = pageNumber * pageSize;
+        public List<PostDto> GetPaginatedFullTextResponse(
+            string query,
+            int pageNumber = 1,
+            int pageSize = 10)
+        {
+            query = "\"" + query + "\"";
+            int top_n = pageNumber * pageSize;
 
-			return [.. context.Database.SqlQueryRaw<PostDto>(@"
+            return [.. context.Database.SqlQueryRaw<PostDto>(@"
 				SELECT fts.Rank AS PostRank,
 					p.Id AS PostId,
 					p.Title AS PostTitle,
@@ -53,22 +52,22 @@ namespace StackOverflowClone.Areas.Home.Controllers
 					u.Reputation
 				ORDER BY fts.Rank DESC;
 			", query, top_n)];
-		}
-	}
+        }
+    }
 
-	public class PostDto
-	{
-		public int PostRank { get; set; }
-		public int PostId { get; set; }
-		public string? PostTitle { get; set; }
+    public class PostDto
+    {
+        public int PostRank { get; set; }
+        public int PostId { get; set; }
+        public string? PostTitle { get; set; }
 
-		public string? PostDescription { get; set; }
+        public string? PostDescription { get; set; }
 
-		public int? TotalVotes { get; set; }
-		public int? TotalAnswers { get; set; }
-		public string? UserName { get; set; }
-		public int? UserReputation { get; set; }
-		public string? UserBadges { get; set; }
+        public int? TotalVotes { get; set; }
+        public int? TotalAnswers { get; set; }
+        public string? UserName { get; set; }
+        public int? UserReputation { get; set; }
+        public string? UserBadges { get; set; }
 
-	}
+    }
 }
