@@ -11,6 +11,7 @@ namespace StackOverflowClone.Areas.Home.Controllers
 	{
 		public IActionResult Index(string searchQuery, int pageNumber = 1)
 		{
+			ViewData["query"] = searchQuery;
 			return View(GetPaginatedFullTextResponse(searchQuery, pageNumber));
 		}
 

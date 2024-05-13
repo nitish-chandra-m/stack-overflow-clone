@@ -1,15 +1,27 @@
 ﻿@{
 	ViewData["Title"] = "Search Page";
+	var currentPage = int.Parse(Context.Request.Query["pageNumber"].SingleOrDefault() ?? "1");
 }
 @using StackOverflowClone.Areas.Home.Controllers
 @model List<PostDto>
 
 <div class="text-center">
-	<h1 class="display-4">Search results</h1>
+	<h1 class="display-6 mb-5">Search results for <span class="display-6" style="color:blue">@ViewData["query"]</span></h1>
 	@foreach (var p in Model)
 	{
 		<div>
-			<p>@p.PostId: @p.PostTitle @* @Html.Raw(@p.PostDescription)  *@</p>
+			<p>@p.PostId: @p.PostTitle </p>
 		</div>
 	}
+	@{
+		var nextPage = currentPage + 1;
+	}
+	<a id="paginate" class="btn btn-secondary" asp-area="Home" asp-controller="Search" asp-action="Index" asp-route-searchQuery="@ViewData["query"]" asp-route-pageNumber=@nextPage>Load more</a>
 </div>
+
+<script type="text/javascript">
+	window.addEventListener("load", () => {
+		console.log('onload event');
+		document.getElementById("paginate").scrollIntoView();
+	});
+</script>
