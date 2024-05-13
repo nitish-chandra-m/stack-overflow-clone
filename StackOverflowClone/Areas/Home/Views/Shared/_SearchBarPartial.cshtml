@@ -1,0 +1,9 @@
+﻿@if (SignInManager.IsSignedIn(User))
+{
+    <form class="d-flex w-50" asp-area="Home" asp-controller="Search" asp-action="Index">
+        <input class="form-control me-sm-2" type="search" placeholder="How to invert a binary tree?" name="searchQuery">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+}
+
+

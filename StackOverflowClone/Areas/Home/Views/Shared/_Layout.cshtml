@@ -22,17 +22,8 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Search" asp-action="Index">Search</a>
-                        </li>
                     </ul>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <form class="d-flex w-50">
-                            <input class="form-control me-sm-2" type="search" placeholder="How to invert a binary tree?">
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                    }
+                    <partial name="~/Areas/Home/Views/Shared/_SearchBarPartial.cshtml" />
                     <partial name="~/Areas/Home/Views/Shared/_LoginPartial.cshtml" />
                 </div>
             </div>
@@ -46,7 +37,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - StackOverflowClone - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Nitish Chandra Mahesh - <a href="https://github.com/nitish-chandra-m" target="_blank">Profile</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

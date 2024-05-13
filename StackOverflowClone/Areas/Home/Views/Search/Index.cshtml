@@ -1,14 +1,15 @@
 ﻿@{
 	ViewData["Title"] = "Search Page";
 }
-@model List<Post>
+@using StackOverflowClone.Areas.Home.Controllers
+@model List<PostDto>
 
 <div class="text-center">
-	<h1 class="display-4">Search Stack Overflow</h1>
+	<h1 class="display-4">Search results</h1>
 	@foreach (var p in Model)
 	{
 		<div>
-			<p>@p.Id: @Html.Raw(@p.Title)</p>
+			<p>@p.PostId: @p.PostTitle @* @Html.Raw(@p.PostDescription)  *@</p>
 		</div>
 	}
 </div>
