@@ -2,7 +2,7 @@
 ---
 Simulating StackOverflow search using StackOverflow data upto 2010. 
 
-Demo Link: <a href="https://stack-overflow-clone.azurewebsites.net/" target="_blank">https://stack-overflow-clone.azurewebsites.net/</a>
+Demo Link: [](https://stack-overflow-clone.azurewebsites.net/){:target="_blank"}
 
 ## Key Features:
 1. ASP.NET Core MVC application hosted on Azure App Service powered by SQLServer database also hosted on Azure.
