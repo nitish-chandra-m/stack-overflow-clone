@@ -1,8 +1,8 @@
 # Stack Overflow Clone using ASP.NET Core MVC and SQL Server
 ---
-Simulating StackOverflow search using StackOverflow Data upto 2010. 
+Simulating StackOverflow search using StackOverflow data upto 2010. 
 
-Demo Link: https://stack-overflow-clone.azurewebsites.net/
+Demo Link: <a href="https://stack-overflow-clone.azurewebsites.net/" target="_blank">https://stack-overflow-clone.azurewebsites.net/</a>
 
 ## Key Features:
 1. ASP.NET Core MVC application hosted on Azure App Service powered by SQLServer database also hosted on Azure.
